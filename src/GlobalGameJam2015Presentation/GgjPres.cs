@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using MoonSharp.Interpreter;
+using System.IO;
+using MoonSharp.RemoteDebugger;
+using System.Diagnostics;
 
 namespace GlobalGameJam2015Presentation
 {
@@ -18,6 +21,7 @@ namespace GlobalGameJam2015Presentation
 	{
 		GraphicsDeviceManager graphics;
 		MouseState prevMouseState;
+		string durationLogFile = null;
 
 		public SpriteBatch SpriteBatch { get; private set; }
 		public Table Configuration { get; private set; }
@@ -26,11 +30,15 @@ namespace GlobalGameJam2015Presentation
 		public int VrWidth { get; private set; }
 		public int VrHeight { get; private set; }
 		public Color Background { get; private set; }
-		public List<ISlide> Slides { get; private set; }
+		public List<Slide> Slides { get; private set; }
 		public LuaApiProvider Api { get; private set; }
 		public int SlideIndex { get; private set; }
 		public DateTime SlideBirth { get; private set; }
 		public DateTime Now { get; private set; }
+		public bool LetterBox { get; private set; }
+		public InfoWindow SecondScreen { get; private set; }
+		public DateTime FirstSlideStart { get; private set; }
+		public TimeSpan TotalLength { get; private set; }
 
 		public GgjPres()
 			: base()
@@ -39,14 +47,20 @@ namespace GlobalGameJam2015Presentation
 
 			Api = new LuaApiProvider(this);
 
-			Slides = new List<ISlide>();
+			Slides = new List<Slide>();
 
 			Script cfg = new Script();
 			Configuration = cfg.Globals;
-			cfg.Globals["script"] = (Action<string>)(s => Slides.Add(new ScriptSlide(this, "Slides/" + s)));
-			cfg.Globals["text"] = (Action<string>)(s => Slides.Add(new TextSlide(this, s)));
+			cfg.Globals["defineSlide"] = (Action<Table>)(def => Slides.Add(new Slide(this, def)));
 
 			cfg.DoFile("Config.lua");
+
+			TimeSpan totalLength = TimeSpan.Zero;
+			foreach (Slide s in Slides)
+			{
+				totalLength = totalLength + s.ExpectedRunningLength;
+				s.ExpectedRunningLengthTotal = totalLength;
+			}
 
 			graphics = new GraphicsDeviceManager(this);
 
@@ -57,7 +71,27 @@ namespace GlobalGameJam2015Presentation
 			Height = Configuration.Get("Height").ToObject<int>();
 			VrWidth = Configuration.Get("VirtualWidth").ToObject<int>();
 			VrHeight = Configuration.Get("VirtualHeight").ToObject<int>();
+			LetterBox = Configuration.Get("VirtualHeight").CastToBool();
 
+			SecondScreen = new InfoWindow();
+			TotalLength = TimeSpan.Parse(Configuration.Get("TotalLength").String);
+
+			if (Configuration.Get("SecondScreen").CastToBool())
+			{
+				SecondScreen.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+
+				SecondScreen.Location = new System.Drawing.Point(Configuration.Get("SecondScreenX").ToObject<int>(),
+					Configuration.Get("SecondScreenY").ToObject<int>());
+
+				SecondScreen.Show();
+			}
+
+			durationLogFile = Configuration.Get("LogDurations").String;
+
+			if (durationLogFile != null)
+			{
+				File.WriteAllText(durationLogFile, "");
+			}
 
 			form.Size = new System.Drawing.Size(Width, Height);
 			this.Window.IsBorderless = Configuration.Get("Borderless").CastToBool();
@@ -69,7 +103,14 @@ namespace GlobalGameJam2015Presentation
 
 			graphics.ApplyChanges();
 			Content.RootDirectory = "Content";
+
+			Now = DateTime.Now;
+			SecondScreen.RefreshData(this);
 		}
+
+
+
+
 
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
@@ -93,7 +134,7 @@ namespace GlobalGameJam2015Presentation
 			FrameBuffer = new RenderTarget2D(GraphicsDevice, VrWidth, VrHeight);
 			SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-			foreach (ISlide slide in Slides)
+			foreach (Slide slide in Slides)
 				slide.Init();
 		}
 
@@ -115,15 +156,41 @@ namespace GlobalGameJam2015Presentation
 		{
 			if (SlideIndex < Slides.Count - 1)
 			{
+				if (durationLogFile != null)
+					LogSlideEnd();
+
 				SlideIndex += 1;
 				ChangeSlide();
 			}
 		}
 
+		private void LogSlideEnd()
+		{
+			List<string> lines = new List<string>();
+			lines.Add("---------------------------------------------");
+			lines.Add(string.Format("{0} - {1}", SlideIndex, Slides[SlideIndex].Text ?? "<no title>"));
+
+			if (SlideIndex != 0)
+			{
+				lines.Add(string.Format("Duration : {0}", (this.Now - this.FirstSlideStart).ToString(@"mm\:ss")));
+				lines.Add(string.Format("Total Dr : {0}", (this.Now - this.SlideBirth).ToString(@"mm\:ss")));
+			}
+
+			File.AppendAllLines(durationLogFile, lines, System.Text.Encoding.UTF8);
+		}
+
 		private void ChangeSlide()
 		{
 			SlideBirth = Now;
+
+			if (FirstSlideStart == DateTime.MinValue)
+				FirstSlideStart = Now;
+
+			SecondScreen.RefreshData(this);
+			Slides[SlideIndex].Reset();
 		}
+
+
 
 		/// <summary>
 		/// Allows the game to run logic such as updating the world,
@@ -168,7 +235,7 @@ namespace GlobalGameJam2015Presentation
 		{
 			GraphicsDevice.SetRenderTarget(this.FrameBuffer);
 			GraphicsDevice.Clear(Background);
-			
+
 			SpriteBatch.Begin();
 			Slides[SlideIndex].Draw();
 			SpriteBatch.End();
@@ -178,11 +245,22 @@ namespace GlobalGameJam2015Presentation
 			GraphicsDevice.Clear(Color.Black);
 
 			SpriteBatch.Begin();
-			SpriteBatch.Draw((Texture2D)FrameBuffer, new Rectangle(0, 0, Width, Height), Color.White);
+
+			int letterboxedh = 0;
+			int letterboxedy = 0;
+
+			if (LetterBox)
+			{
+				letterboxedh = (int)(((float)Width) / (((float)VrWidth) / ((float)VrHeight)));
+				letterboxedy = (Height - letterboxedh) / 2;
+			}
+
+			SpriteBatch.Draw((Texture2D)FrameBuffer, new Rectangle(0, letterboxedy, Width, letterboxedh), Color.White);
 			SpriteBatch.End();
 
 			base.Draw(gameTime);
 		}
+
 
 
 

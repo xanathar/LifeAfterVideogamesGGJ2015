@@ -32,7 +32,7 @@ namespace GlobalGameJam2015Presentation
 			strfmt.Alignment = System.Drawing.StringAlignment.Center;
 			strfmt.LineAlignment = System.Drawing.StringAlignment.Center;
 
-			using (var font = new System.Drawing.Font("face", size))
+			using (var font = new System.Drawing.Font(face, size))
 			using (var bmp = new System.Drawing.Bitmap(presentation.VrWidth, presentation.VrHeight))
 			{
 				using (var gfx = System.Drawing.Graphics.FromImage(bmp))
