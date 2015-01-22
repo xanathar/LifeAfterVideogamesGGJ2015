@@ -1,13 +1,13 @@
 ﻿-- Starting position and size of window
 X = 0
 Y = 0
-Width = 320		
-Height = 180
+Width = 720	
+Height = 576
 -- use letterbox to keep aspect ratio in check if virtual buffer and real have diff ratios
 -- (note: works only with some ratio differences, eh)
 LetterBox = true
 -- use borderless to avoid having decos around the window 
-Borderless = true
+Borderless = false
 -- allow exit from presentation
 AllowExit = true
 -- backcolor
@@ -43,7 +43,7 @@ a videogame programmer
 is loading.
 ]],
 	script = "MyPast.lua",
-	duration = "00:02:00",
+	duration = "00:03:30",
 	notes = [[
 		I was born in 1976.. ZX spec in about 1985. Passions: games, building things
 		286 in 1989, fascinated by GW Basic, TD2 credits
@@ -53,7 +53,7 @@ is loading.
 defineSlide {
 	text = "Work in Milestone",
 	script = "Milestone.lua",
-	duration = "00:03:00",
+	duration = "00:01:00",
 	notes = [[
 		I worked at Milestone s.r.l. for 3 years, making racing videogames, TV show videogames and B2B videogames for TV set-top-boxes
 		3D engine programmer for racing games which mostly failed to get to the market, game programmer on non-racing games
@@ -62,8 +62,9 @@ defineSlide {
 
 
 defineSlide {
+	options = { distractionfree = true },
 	text = "Back to the present",
-	duration = "00:03:00",
+	duration = "00:01:20",
 	notes = [[
 		I work in deltatre
 		There I worked and am working on TV graphics, result data gathering and data feeds for 10 years.
@@ -72,7 +73,8 @@ defineSlide {
 
 defineSlide {
 	text = "Why I changed",
-	duration = "00:03:00",
+	script = "Arkanoid.lua",
+	duration = "00:02:48",
 	notes = [[
 		distance
 		fear of unemployment / investing on seldom used skills
@@ -83,49 +85,49 @@ defineSlide {
 defineSlide {
 	text = "What can you bring over ??",
 	script = "BringOver.lua",
-	duration = "00:00:00",
+	duration = "00:00:28",
 }
 
 defineSlide {
-	text = "Passion",
-	duration = "00:00:00",
+	text = "Enthusiasm",
+	duration = "00:00:28",
 }
 
 defineSlide {
 	text = "Cooperation",
-	duration = "00:00:00",
+	duration = "00:01:52",
 	notes = "specially interaction artist – programmer",
 }
 
 defineSlide {
 	text = "Attention to user engagement",
-	duration = "00:00:00",
+	duration = "00:02:39",
 }
 
 defineSlide {
 	text = "Attention to detail",
-	duration = "00:00:00",
+	duration = "00:00:40",
 }
 
 defineSlide {
 	text = "Analytics",
-	duration = "00:00:00",
+	duration = "00:01:42",
 }
 
 defineSlide {
 	text = "Problem solving",
-	duration = "00:00:00",
+	duration = "00:00:57",
 }
 
 defineSlide {
 	text = "Sacrifice",
-	duration = "00:00:00",
+	duration = "00:01:04",
 }
 
 
 defineSlide {
 	text = "Artistic skills",
-	duration = "00:00:00",
+	duration = "00:00:31",
 }
 
 defineSlide {
@@ -139,7 +141,7 @@ C++, C, C#, Java, Assembly, math, DirectX, OpenGL, OpenAL, OpenCV, Lua, Python, 
 
 buuut.. not PHP!
 ]],
-	duration = "00:00:00",
+	duration = "00:01:08",
 	notes = [[ 
 		a LOT of skills can be reused in the non-gaming industry
 		a vg programmer is unlikely to know PHP or SQL, coming from gaming
@@ -150,12 +152,12 @@ buuut.. not PHP!
 defineSlide {
 	text = "But, is anybody interested ?",
 	script = 'Bomb.lua',
-	duration = "00:00:00",
+	duration = "00:01:08",
 }
 
 defineSlide {
 	text = 'Smart and "Gets things done"\n\n(Joel Spolsky)',
-	duration = "00:00:00",
+	duration = "00:02:13",
 }
 
 defineSlide {
