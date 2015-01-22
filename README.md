@@ -30,7 +30,7 @@ Adds a new slide to the slideshow. Can take these params in the table:
 * notes: Notes to appear on the second screen
 * duration : Expected duration of the slide
 * script : The lua script implementing the slide. If nil, DefaultSlide.lua is used.
-* options : A table which gets passed to the slide script.
+* options : A table which gets passed to the slide script. Be sure it contains only strings, booleans and numbers, otherwise it's a crash waiting to happen!
  
 ### Slides scripts
 
