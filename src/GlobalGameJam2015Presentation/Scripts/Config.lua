@@ -1,13 +1,13 @@
 ﻿-- Starting position and size of window
 X = 0
 Y = 0
-Width = 720	
-Height = 576
+Width = 1600	
+Height = 900
 -- use letterbox to keep aspect ratio in check if virtual buffer and real have diff ratios
 -- (note: works only with some ratio differences, eh)
 LetterBox = true
 -- use borderless to avoid having decos around the window 
-Borderless = false
+Borderless = true
 -- allow exit from presentation
 AllowExit = true
 -- backcolor

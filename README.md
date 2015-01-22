@@ -13,9 +13,10 @@ Features:
 * HLSL shaders are supported
 * Fade effect between slides
 
-## API
+To enjoy the original presentation as it's meant to be, download the Atari Classic Chunky font from http://members.bitstream.net/marksim/atarimac/fonts.html .
 
-### Config.lua
+
+## Config.lua
 
 Config.lua contains configuration parameters (documented in the file itself) and slides definitions.
 
@@ -32,7 +33,7 @@ Adds a new slide to the slideshow. Can take these params in the table:
 * script : The lua script implementing the slide. If nil, DefaultSlide.lua is used.
 * options : A table which gets passed to the slide script. Be sure it contains only strings, booleans and numbers, otherwise it's a crash waiting to happen!
  
-### Slides scripts
+## Slides scripts
 
 Slides are implemented in Lua scripts.
 
