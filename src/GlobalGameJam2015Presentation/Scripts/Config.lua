@@ -16,7 +16,7 @@ Background = "#333"
 VirtualWidth = 1920
 VirtualHeight = 1080
 -- defaults for simple slides
-DefaultFont = "Ubuntu"
+DefaultFont = "Atari Classic Chunky"
 DefaultSize = 72
 FadeMilliseconds = 250
 -- enable and configure second screen function
@@ -87,7 +87,7 @@ defineSlide {
 }
 
 defineSlide {
-	text = "Attitude",
+	text = "Passion",
 	duration = "00:00:00",
 }
 
@@ -98,7 +98,38 @@ defineSlide {
 }
 
 defineSlide {
-	fontsize = 64,
+	text = "Attention to user engagement",
+	duration = "00:00:00",
+}
+
+defineSlide {
+	text = "Attention to detail",
+	duration = "00:00:00",
+}
+
+defineSlide {
+	text = "Analytics",
+	duration = "00:00:00",
+}
+
+defineSlide {
+	text = "Problem solving",
+	duration = "00:00:00",
+}
+
+defineSlide {
+	text = "Sacrifice",
+	duration = "00:00:00",
+}
+
+
+defineSlide {
+	text = "Artistic skills",
+	duration = "00:00:00",
+}
+
+defineSlide {
+	fontsize = 48,
 	options = { distractionfree = true },
 	text = 
 [[
@@ -106,19 +137,19 @@ Some programming skills.. like..
 
 C++, C, C#, Java, Assembly, math, DirectX, OpenGL, OpenAL, OpenCV, Lua, Python, JavaScript, Unity, DSLs, multiplatform, mobile, multithreading, networking, audio programming, shaders, design patterns, testing, agile methodologies, OOP, RESTful services, ...
 
-buuut.. you don’t know PHP!
+buuut.. not PHP!
 ]],
 	duration = "00:00:00",
 	notes = [[ 
 		a LOT of skills can be reused in the non-gaming industry
 		a vg programmer is unlikely to know PHP or SQL, coming from gaming
-		but seriously, what about what she/he knows ? 
 	]],
 }
 
 
 defineSlide {
-	text = "Is there anybody interested ?",
+	text = "But, is anybody interested ?",
+	script = 'Bomb.lua',
 	duration = "00:00:00",
 }
 
@@ -127,38 +158,9 @@ defineSlide {
 	duration = "00:00:00",
 }
 
-
-defineSlide {
-	text = "Attention to user engagement",
-	duration = "00:00:00",
-}
-
-
-defineSlide {
-	text = "And what could you bring back",
-	duration = "00:00:00",
-}
-
 defineSlide {
 	options = { distractionfree = true },
-	fontsize = 64,
-	text = 
-[[
-Some programming skills.. like..
-
-C++, C, C#, Java, PHP, WebGL, SQL, JavaScript, Python, Ruby, ActionScript, DSLs, multiplatform, mobile, multithreading, networking, audio programming, content management systems, design patterns, testing, agile methodologies, OOP, RESTful services, ...
-
-buuut.. you don’t know DirectX!
-]],
-	duration = "00:00:00",
-}
-
-
-
-
-defineSlide {
-	options = { distractionfree = true },
-	fontsize = 32,
+	fontsize = 24,
 	text = 
 [[
 https://github.com/xanathar/LifeAfterVideogamesGGJ2015
