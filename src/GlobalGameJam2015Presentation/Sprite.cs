@@ -37,7 +37,7 @@ namespace GlobalGameJam2015Presentation
 			m_Presentation.SpriteBatch.Draw(m_Texture, new Vector2(x, y), Color.White * alpha);
 		}
 
-		static int counter = 0;
+		//static int counter = 0;
 
 		internal static Sprite CreateTextSprite(GgjPres presentation, string text, string face, float size)
 		{
@@ -61,7 +61,7 @@ namespace GlobalGameJam2015Presentation
 				{
 					bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
 
-					bmp.Save(string.Format(@"C:\temp\pres\text{0}.png", counter++), System.Drawing.Imaging.ImageFormat.Png);
+					// bmp.Save(string.Format(@"C:\temp\pres\text{0}.png", counter++), System.Drawing.Imaging.ImageFormat.Png);
 
 					var tex = Texture2D.FromStream(presentation.GraphicsDevice, stream);
 					return new Sprite(presentation, tex);

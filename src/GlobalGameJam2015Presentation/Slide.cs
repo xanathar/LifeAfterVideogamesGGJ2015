@@ -106,26 +106,47 @@ namespace GlobalGameJam2015Presentation
 
 			TimeSpan time = now - zero;
 
-			m_Draw(time.TotalSeconds);
+			try
+			{
+				m_Draw(time.TotalSeconds);
+			}
+			catch
+			{
+				// please never fall here while I'm presenting.. :)
+			} 
 		}
 
 		public void Click()
 		{
-			DateTime now = m_Presentation.Now;
-			DateTime zero = m_Presentation.SlideBirth;
+			try
+			{
+				DateTime now = m_Presentation.Now;
+				DateTime zero = m_Presentation.SlideBirth;
 
-			TimeSpan time = now - zero;
+				TimeSpan time = now - zero;
 
-			if (m_Click != null)
-				m_Click(time.TotalSeconds);
-			else
-				m_Presentation.GoNextSlide();
+				if (m_Click != null)
+					m_Click(time.TotalSeconds);
+				else
+					m_Presentation.GoNextSlide();
+			}
+			catch
+			{
+				// please never fall here while I'm presenting.. :)
+			}
 		}
 
 		public void Reset()
 		{
-			if (m_Reset != null)
-				m_Reset();
+			try
+			{
+				if (m_Reset != null)
+					m_Reset();
+			}
+			catch
+			{
+				// please never fall here while I'm presenting.. :)
+			}
 		}
 
 	}
