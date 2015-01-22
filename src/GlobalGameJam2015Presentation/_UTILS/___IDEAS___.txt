@@ -1,7 +1,7 @@
 ﻿Animations:
 
-ZX Spectrum loading
-Zak McKracken
+DONE - ZX Spectrum loading
+DONE - Zak McKracken
 EOB1 ?
 Mario
 Prehistorik

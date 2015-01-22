@@ -11,8 +11,6 @@
 	sprite("Milestone/ERE.jpg"), 
 }
 
-fx = shader("Shaders/TestShader.mgfxo");
-
 pos = {
 	{ 200, 200 },
 	{ 600, 600 },
@@ -38,15 +36,10 @@ function draw(time)
 
 	if (state == 0) then
 		for i = 1, 8 do
-			fx.set("DoIt", i % 2);
-			fx.on();
-
 			local alpha = 2*time - i
 			local x, y = pos[i][1], pos[i][2];
 			realgames[i].draw(x, y, alpha);
 		end
-
-		fx.off();
 	elseif (state == 1) then
 		for i = 1, #realgames do
 			local alpha = 2*time - (i - 8)

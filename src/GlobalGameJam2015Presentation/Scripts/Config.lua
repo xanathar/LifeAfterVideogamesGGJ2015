@@ -79,6 +79,7 @@ defineSlide {
 
 defineSlide {
 	text = "What can you bring over ??",
+	script = "BringOver.lua",
 	duration = "00:00:00",
 }
 
