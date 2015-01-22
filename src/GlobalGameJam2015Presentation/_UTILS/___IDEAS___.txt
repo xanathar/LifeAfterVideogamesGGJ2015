@@ -2,10 +2,14 @@
 
 DONE - ZX Spectrum loading
 DONE - Zak McKracken
-EOB1 ?
-Mario
-Prehistorik
+
+Zelda
+
 Pac Man
+
+Arkanoid
+
+
 
 [see archive.org]
 

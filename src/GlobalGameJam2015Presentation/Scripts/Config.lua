@@ -18,6 +18,7 @@ VirtualHeight = 1080
 -- defaults for simple slides
 DefaultFont = "Ubuntu"
 DefaultSize = 72
+FadeMilliseconds = 250
 -- enable and configure second screen function
 SecondScreen = false
 SecondScreenX = -1280
@@ -26,6 +27,8 @@ SecondScreenY = 0
 TotalLength = "00:30:00"
 LogDurations = "c:\\temp\\durations_{TIME}.txt"
 -- 
+
+
 
 defineSlide {
 	options = { distractionfree = true },

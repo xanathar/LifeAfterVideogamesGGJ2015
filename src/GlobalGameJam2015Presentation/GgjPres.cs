@@ -40,6 +40,8 @@ namespace GlobalGameJam2015Presentation
 		public DateTime FirstSlideStart { get; private set; }
 		public TimeSpan TotalLength { get; private set; }
 		public Effect StandardFx { get; private set; }
+		public DateTime? ChangingSlide { get; private set; }
+		public float FadeMilliseconds { get; private set; }
 
 		public GgjPres()
 			: base()
@@ -73,6 +75,8 @@ namespace GlobalGameJam2015Presentation
 			VrWidth = Configuration.Get("VirtualWidth").ToObject<int>();
 			VrHeight = Configuration.Get("VirtualHeight").ToObject<int>();
 			LetterBox = Configuration.Get("VirtualHeight").CastToBool();
+
+			FadeMilliseconds = (float)(Configuration.Get("FadeMilliseconds").Number);
 
 			SecondScreen = new InfoWindow();
 			TotalLength = TimeSpan.Parse(Configuration.Get("TotalLength").String);
@@ -144,11 +148,19 @@ namespace GlobalGameJam2015Presentation
 
 		private void Click()
 		{
-			Slides[SlideIndex].Click();
+			if (!ChangingSlide.HasValue)
+				Slides[SlideIndex].Click();
 		}
 
 		public void GoPrevSlide()
 		{
+			if (ChangingSlide.HasValue)
+			{
+				ChangingSlide = null;
+				ChangeSlide();
+				return;
+			}
+
 			if (SlideIndex > 0)
 			{
 				SlideIndex -= 1;
@@ -159,6 +171,14 @@ namespace GlobalGameJam2015Presentation
 		public void GoNextSlide()
 		{
 			if (SlideIndex < Slides.Count - 1)
+				ChangingSlide = Now;
+		}
+
+		private void ReallyGoNextSlide()
+		{
+			ChangingSlide = null;
+
+			if (SlideIndex < Slides.Count - 1)
 			{
 				if (durationLogFile != null)
 					LogSlideEnd();
@@ -167,6 +187,7 @@ namespace GlobalGameJam2015Presentation
 				ChangeSlide();
 			}
 		}
+
 
 		private void LogSlideEnd()
 		{
@@ -205,6 +226,11 @@ namespace GlobalGameJam2015Presentation
 		protected override void Update(GameTime gameTime)
 		{
 			Now = DateTime.Now;
+
+			if ((ChangingSlide.HasValue) && ((Now - ChangingSlide.Value).TotalMilliseconds > FadeMilliseconds))
+			{
+				ReallyGoNextSlide();
+			}
 
 			MouseState mouseState = Mouse.GetState();
 
@@ -246,7 +272,7 @@ namespace GlobalGameJam2015Presentation
 
 			GraphicsDevice.SetRenderTarget(null);
 
-			GraphicsDevice.Clear(Color.Black);
+			GraphicsDevice.Clear(Background);
 
 			SpriteBatch.Begin();
 
@@ -259,7 +285,19 @@ namespace GlobalGameJam2015Presentation
 				letterboxedy = (Height - letterboxedh) / 2;
 			}
 
-			SpriteBatch.Draw((Texture2D)FrameBuffer, new Rectangle(0, letterboxedy, Width, letterboxedh), Color.White);
+			float alpha = 1f;
+
+			if (ChangingSlide.HasValue)
+			{
+				alpha = 1f - (float)(Now - ChangingSlide.Value).TotalMilliseconds / FadeMilliseconds;
+			}
+			else if ((Now - SlideBirth).TotalMilliseconds < FadeMilliseconds)
+			{
+				alpha = (float)(Now - SlideBirth).TotalMilliseconds / FadeMilliseconds;
+			}
+
+
+			SpriteBatch.Draw((Texture2D)FrameBuffer, new Rectangle(0, letterboxedy, Width, letterboxedh), Color.White * alpha);
 			SpriteBatch.End();
 
 			base.Draw(gameTime);

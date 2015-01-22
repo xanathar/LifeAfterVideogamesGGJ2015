@@ -18,6 +18,13 @@ namespace GlobalGameJam2015Presentation
 			m_Texture = texture;
 		}
 
+		public void Blit(int sx, int sy, int w, int h, int dx, int dy, float opacity = 1f)
+		{
+			float alpha = Math.Max(0, Math.Min(1f, opacity));
+			m_Presentation.SpriteBatch.Draw(m_Texture, new Rectangle(dx, dy, w, h), new Rectangle(sx, sy, w, h), Color.White * alpha);
+		}
+
+
 		public void Stretch(int x, int y, int w, int h, float opacity = 1f)
 		{
 			float alpha = Math.Max(0, Math.Min(1f, opacity));
@@ -54,7 +61,6 @@ namespace GlobalGameJam2015Presentation
 					var tex = Texture2D.FromStream(presentation.GraphicsDevice, stream);
 					return new Sprite(presentation, tex);
 				}
-
 			}
 		}
 
