@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 using MoonSharp.Interpreter;
 
 namespace GlobalGameJam2015Presentation
@@ -12,7 +13,8 @@ namespace GlobalGameJam2015Presentation
 
 		static LuaApiProvider()
 		{
-			UserData.RegisterType<Sprite>();
+			UserData.RegisterType<Sprite>(InteropAccessMode.Preoptimized);
+			UserData.RegisterType<Shader>(InteropAccessMode.Preoptimized);
 		}
 
 		public LuaApiProvider(GgjPres presentation)
@@ -26,6 +28,7 @@ namespace GlobalGameJam2015Presentation
 			script.Globals["prev"] = (Action)m_Presentation.GoPrevSlide;
 			script.Globals["text"] = (Func<string, string, float, Sprite>)CreateText;
 			script.Globals["sprite"] = (Func<string, Sprite>)CreateSprite;
+			script.Globals["shader"] = (Func<string, Shader>)CreateShader;
 		}
 
 		public Sprite CreateSprite(string filename)
@@ -40,7 +43,10 @@ namespace GlobalGameJam2015Presentation
 				(size > 0) ? size : (float)m_Presentation.Configuration.Get("DefaultSize").Number);
 		}
 
-		
+		public Shader CreateShader(string filename)
+		{
+			return Shader.LoadFromFile(m_Presentation, filename);
+		}
 
 
 

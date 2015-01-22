@@ -18,13 +18,17 @@ namespace GlobalGameJam2015Presentation
 			m_Texture = texture;
 		}
 
+		public void Stretch(int x, int y, int w, int h, float opacity = 1f)
+		{
+			float alpha = Math.Max(0, Math.Min(1f, opacity));
+			m_Presentation.SpriteBatch.Draw(m_Texture, new Rectangle(x, y, w, h), Color.White * alpha);
+		}
 
 		public void Draw(int x = 0, int y = 0, float opacity = 1f)
 		{
 			float alpha = Math.Max(0, Math.Min(1f, opacity));
 			m_Presentation.SpriteBatch.Draw(m_Texture, new Vector2(x, y), Color.White * alpha);
 		}
-
 
 		internal static Sprite CreateTextSprite(GgjPres presentation, string text, string face, float size)
 		{
@@ -50,6 +54,7 @@ namespace GlobalGameJam2015Presentation
 					var tex = Texture2D.FromStream(presentation.GraphicsDevice, stream);
 					return new Sprite(presentation, tex);
 				}
+
 			}
 		}
 

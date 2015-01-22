@@ -39,6 +39,7 @@ namespace GlobalGameJam2015Presentation
 		public InfoWindow SecondScreen { get; private set; }
 		public DateTime FirstSlideStart { get; private set; }
 		public TimeSpan TotalLength { get; private set; }
+		public Effect StandardFx { get; private set; }
 
 		public GgjPres()
 			: base()
@@ -90,6 +91,7 @@ namespace GlobalGameJam2015Presentation
 
 			if (durationLogFile != null)
 			{
+				durationLogFile = durationLogFile.Replace("{TIME}", DateTime.Now.Ticks.ToString());
 				File.WriteAllText(durationLogFile, "");
 			}
 
@@ -133,6 +135,8 @@ namespace GlobalGameJam2015Presentation
 		{
 			FrameBuffer = new RenderTarget2D(GraphicsDevice, VrWidth, VrHeight);
 			SpriteBatch = new SpriteBatch(GraphicsDevice);
+
+			StandardFx = new BasicEffect(GraphicsDevice);
 
 			foreach (Slide slide in Slides)
 				slide.Init();
@@ -236,7 +240,7 @@ namespace GlobalGameJam2015Presentation
 			GraphicsDevice.SetRenderTarget(this.FrameBuffer);
 			GraphicsDevice.Clear(Background);
 
-			SpriteBatch.Begin();
+			SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 			Slides[SlideIndex].Draw();
 			SpriteBatch.End();
 

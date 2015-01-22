@@ -1,8 +1,8 @@
 ﻿-- Starting position and size of window
 X = 1680
 Y = 0
-Width = 1280
-Height = 1024
+Width = 960
+Height = 540
 -- use letterbox to keep aspect ratio in check if virtual buffer and real have diff ratios
 -- (note: works only with some ratio differences, eh)
 LetterBox = true
@@ -24,7 +24,7 @@ SecondScreenX = -1280
 SecondScreenY = 0
 --
 TotalLength = "00:30:00"
-LogDurations = "c:\\temp\\durations.txt"
+LogDurations = "c:\\temp\\durations_{TIME}.txt"
 -- 
 
 defineSlide {
@@ -33,12 +33,17 @@ defineSlide {
 }
 
 defineSlide {
-	text = "A blink to the past",
+	text = 
+[[
+Please wait..
+a videogame programmer
+is loading.
+]],
 	script = "MyPast.lua",
 	duration = "00:02:00",
 	notes = [[
-		I was born in 1976.. ZX spec in 1985. Passions: games, building things
-		286 in 1989, GW Basic, TD2 credits
+		I was born in 1976.. ZX spec in about 1985. Passions: games, building things
+		286 in 1989, fascinated by GW Basic, TD2 credits
 	]]
 }
 
@@ -67,8 +72,8 @@ defineSlide {
 	duration = "00:03:00",
 	notes = [[
 		distance
-		fear of unemployment
-		crysis of sector
+		fear of unemployment / investing on seldom used skills
+		crysis of industry
 	]]
 }
 
@@ -144,15 +149,23 @@ buuut.. you don’t know DirectX!
 	duration = "00:00:00",
 }
 
-defineSlide {
-	text = "end",
-	duration = "00:00:00",
-}
 
 
 
 defineSlide {
-	text = "end",
-	duration = "00:00:00",
+	options = { distractionfree = true },
+	fontsize = 32,
+	text = 
+[[
+https://github.com/xanathar/LifeAfterVideogamesGGJ2015
+
+Built using MonoGame (http://www.monogame.net/)
+
+Powered by MoonSharp (http://www.moonsharp.org/)
+
+Product trademarks, logos, names, together with brands and any other trademark featured, referred or simply showed within the present material are the property of their respective rightful owner, trademark holders and Licensors. 
+
+]],
+	duration = "00:30:00",
 }
 
