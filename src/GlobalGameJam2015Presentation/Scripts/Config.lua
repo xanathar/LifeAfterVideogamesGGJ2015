@@ -1,8 +1,8 @@
 ﻿-- Starting position and size of window
-X = 1680
+X = 0
 Y = 0
-Width = 960
-Height = 540
+Width = 320		
+Height = 180
 -- use letterbox to keep aspect ratio in check if virtual buffer and real have diff ratios
 -- (note: works only with some ratio differences, eh)
 LetterBox = true
@@ -20,8 +20,8 @@ DefaultFont = "Atari Classic Chunky"
 DefaultSize = 72
 FadeMilliseconds = 250
 -- enable and configure second screen function
-SecondScreen = false
-SecondScreenX = -1280
+SecondScreen = true
+SecondScreenX = 0
 SecondScreenY = 0
 --
 TotalLength = "00:30:00"
@@ -165,9 +165,14 @@ defineSlide {
 [[
 https://github.com/xanathar/LifeAfterVideogamesGGJ2015
 
-Built using MonoGame (http://www.monogame.net/)
+Built using MonoGame 
+http://www.monogame.net/
 
-Powered by MoonSharp (http://www.moonsharp.org/)
+Powered by MoonSharp 
+http://www.moonsharp.org/
+
+8-bit font by Mark Simonson 
+http://members.bitstream.net/marksim/atarimac/fonts.html
 
 Product trademarks, logos, names, together with brands and any other trademark featured, referred or simply showed within the present material are the property of their respective rightful owner, trademark holders and Licensors. 
 

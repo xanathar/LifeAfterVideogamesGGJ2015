@@ -12,7 +12,7 @@ if (_OPTIONS.distractionfree) then
 else
 	local distractionidx = math.random(1, #distractions);
 	dofile(distractions[distractionidx]);
-	distractionTime = math.random(1, 120);
+	distractionTime = math.random(1, 60);
 end
 
 

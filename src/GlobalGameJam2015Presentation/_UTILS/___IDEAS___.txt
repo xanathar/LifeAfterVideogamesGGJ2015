@@ -1,33 +1,7 @@
-﻿Animations:
+﻿TODO:
 
-DONE - ZX Spectrum loading
-DONE - Zak McKracken
-
-Zelda
-
-Pac Man
-
-Arkanoid
-
-
-
-[see archive.org]
-
-
-Fare quick fade out ??
-[fade in in slide script]
-
-
-
-Slides:
-	more on soft skills
-	more on back
-
-
-
-
-
-
-
+- remove "passion"
+- re-add "and back" section ??
+- recheck with longer biography
 
 

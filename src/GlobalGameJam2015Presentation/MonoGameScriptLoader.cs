@@ -10,7 +10,7 @@ using MoonSharp.Interpreter.Loaders;
 namespace GlobalGameJam2015Presentation
 {
 	class MonoGameScriptLoader : ClassicLuaScriptLoader
-	{
+	{ 
 		protected override bool FileExists(string file)
 		{
 			using (var stream = TitleContainer.OpenStream("Scripts/" + file))

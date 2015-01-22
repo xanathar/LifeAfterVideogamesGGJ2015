@@ -167,7 +167,9 @@
     <None Include="Content\Shaders\TestShader.mgfxo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\DefaultSlide.lua" />
+    <None Include="Scripts\DefaultSlide.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Scripts\Distractions\ZeldaRun.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
